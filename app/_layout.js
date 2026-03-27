@@ -39,6 +39,21 @@ export default function Layout() {
             title: "Sobre",
           }}
         />
+
+        <Stack.Screen
+          name="login"
+          options={{
+              title: "Login",
+          }}
+        />
+
+        <Stack.Screen
+          name="profile"
+          options={{
+            title: "Perfil",
+          }}
+        />
+
       </Stack>
     </View>
   );

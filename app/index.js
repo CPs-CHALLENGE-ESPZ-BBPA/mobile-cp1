@@ -5,6 +5,7 @@ export default function Sobre() {
   const router = useRouter();
 
   return (
+    
     <View style={styles.container}>
       
       <Image
@@ -29,8 +30,8 @@ export default function Sobre() {
         estiver conectado ao Wi-Fi da FIAP ou dentro da área de localização da instituição.
       </Text>
 
-      <TouchableOpacity onPress={() => router.back()}>
-        <Text style={styles.voltar}>Acessar</Text>
+      <TouchableOpacity onPress={() => router.push('/login')}>
+        <Text style={styles.acessar}>Acessar</Text>
       </TouchableOpacity>
 
     </View>
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
 
-  voltar: {
+  acessar: {
     fontSize: 16,
     color: '#E83D84',
     fontWeight: '600',
