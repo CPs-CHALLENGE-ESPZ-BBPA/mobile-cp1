@@ -1,12 +1,66 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useState } from 'react';
+import Button from '../components/Button';
+import Message from '../components/Message';
+import LoadingOverlay from '../components/LoadingOverlay';
+import { validateLocation } from '../utils/locationService';
+import { checkWifiConnection } from '../utils/wifiService';
 
 export default function Profile() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ type: '', text: '' });
 
+  // Registra presença
+  const handleRegisterAttendance = async () => {
+    setLoading(true);
+    setMessage({ type: '', text: '' });
+
+    try {
+      // Valida localização
+      const locationResult = await validateLocation();
+      
+      if (!locationResult.isValid) {
+        setMessage({
+          type: 'error',
+          text: `Você está muito longe da FIAP (${locationResult.distance}m). Aproxime-se da instituição.`
+        });
+        setLoading(false);
+        return;
+      }
+
+      // Valida WiFi
+      const wifiResult = await checkWifiConnection();
+      
+      if (!wifiResult.isValid) {
+        setMessage({
+          type: 'error',
+          text: wifiResult.message
+        });
+        setLoading(false);
+        return;
+      }
+
+      // Presença validada com sucesso
+      setMessage({
+        type: 'success',
+        text: 'Presença registrada com sucesso!'
+      });
+
+    } catch (error) {
+      setMessage({
+        type: 'error',
+        text: error.message || 'Erro ao registrar presença'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
+      <LoadingOverlay visible={loading} message="Validando..." />
 
       <Image
         source={require("../assets/fiap-logo.png")}
@@ -17,17 +71,17 @@ export default function Profile() {
       <Text style={styles.info}>RM: 123456</Text>
       <Text style={styles.info}>usuario@fiap.com.br</Text>
 
-      <TouchableOpacity style={styles.botao}>
-        <Text style={styles.textoBotao}>Registrar Presença</Text>
-      </TouchableOpacity>
+      <Message type={message.type} message={message.text} />
 
-      <TouchableOpacity style={styles.botaoSecundario}>
-        <Text style={styles.textoBotao}>Ver Presenças</Text>
-      </TouchableOpacity>
+      <Button
+        title="Registrar Presença"
+        onPress={handleRegisterAttendance}
+        style={styles.botao}
+      />
 
-      <TouchableOpacity onPress={() => router.back()}>
-        <Text style={styles.logout}>Sair</Text>
-      </TouchableOpacity>
+      <Text style={styles.logout} onPress={() => router.back()}>
+        Sair
+      </Text>
 
     </View>
   );
@@ -65,30 +119,8 @@ const styles = StyleSheet.create({
   },
 
   botao: {
-    backgroundColor: '#E83D84',
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 8,
-    marginTop: 20,
+    marginTop: 12,
     width: '80%',
-    alignItems: 'center',
-  },
-
-  botaoSecundario: {
-    backgroundColor: '#1A1A1A',
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 8,
-    marginTop: 10,
-    width: '80%',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#E83D84',
-  },
-
-  textoBotao: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
   },
 
   logout: {
