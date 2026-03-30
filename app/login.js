@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 
@@ -7,6 +7,19 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  function validarLogin() {
+    if (!email || !senha) {
+      Alert.alert('Erro', 'Preencha todos os campos');
+      return;
+    }
+
+    if (email === 'rm123456@fiap.com.br' && senha === 'admin') {
+      router.push('profile');
+    } else {
+      Alert.alert('Erro', 'E-mail ou senha inválidos');
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -30,7 +43,7 @@ export default function Login() {
         onChangeText={setSenha}
       />
 
-      <TouchableOpacity style={styles.botao} onPress={() => router.push('profile')}>
+      <TouchableOpacity style={styles.botao} onPress={validarLogin}>
         <Text style={styles.textoBotao}>Entrar</Text>
       </TouchableOpacity>
 
