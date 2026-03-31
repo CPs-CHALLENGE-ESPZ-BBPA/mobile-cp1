@@ -2,10 +2,10 @@
 
 # Integrantes do grupo
 
-## Albert Katri - rm556544
-## Bruno Carneiro Leão - rm555563
-## Bruno Biletsky - rm554739
-## Paulo Akira Okama - rm556840
+### Albert Katri - rm556544
+### Bruno Carneiro Leão - rm555563
+### Bruno Biletsky - rm554739
+### Paulo Akira Okama - rm556840
 
 # 📖 Resumo
 Aplicativo móvel desenvolvido com Expo para registro de presença, incluindo:
