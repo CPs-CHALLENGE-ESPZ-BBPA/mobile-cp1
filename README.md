@@ -1,5 +1,12 @@
 # 📱 App de Presença (Expo)
 
+# Integrantes do grupo
+
+## Albert Katri - rm556544
+## Bruno Carneiro Leão - rm555563
+## Bruno Biletsky - rm554739
+## Paulo Akira Okama - rm556840
+
 # 📖 Resumo
 Aplicativo móvel desenvolvido com Expo para registro de presença, incluindo:
 
@@ -59,3 +66,52 @@ Exibição de mensagens e erros.
 ---
 
 # 🗂️ Estrutura de Pastas
+
+### app → telas e layout
+### components → componentes reutilizáveis
+### utils → serviços (localização, Wi-Fi)
+### assets → ícones, imagens e splash
+### index.js → entrada do app
+### package.json → dependências
+### app.json → configurações
+
+
+---
+
+# 🚀 Como Executar
+
+## 💻 Instalar dependências
+
+### npm install
+
+
+## ▶️ Iniciar o projeto
+
+### npx expo start
+
+
+## 📱 Executar
+- Expo Go (QR Code)  
+- Emulador Android  
+- Simulador iOS  
+
+---
+
+# ⚠️ Observações
+
+- A navegação é automática (baseada em arquivos)  
+- Para alterar ícones/splash, edite `assets` e `app.json`  
+- Permissões de localização são necessárias  
+
+---
+
+# 🤝 Contribuição
+
+Abra issues ou envie pull requests.  
+Siga o padrão existente do projeto.
+
+---
+
+# 📄 Licença
+
+Definida no package.json (ou adicionar conforme necessário).
